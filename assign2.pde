@@ -1,4 +1,83 @@
+PImage bgImg, soilImg, lifeImg, groundhogIdleImg,  soldierImg, cabbageImg, gameoverImg,
+       startNormalImg, restartNormalImg, startHoverdImg, restartHoverdImg, titleImg, 
+       groundhogDownImg, groundhogLeftImg, groundhogRightImg;
+boolean downPressed, leftPressed, rightPressed;
 
+//gameState
+  final int GAME_START = 0;
+  final int GAME_RUN = 1;
+  final int GAME_OVER = 2;
+  final int GAME_WIN = 3;
+  int gameState = GAME_START;
+
+// BUTTON
+  final int BUTTON_TOP = 360;
+  final int BUTTON_BOTTOM = 420;
+  final int BUTTON_LEFT = 248;
+  final int BUTTON_RIGHT = 392;
+ 
+int r=floor(random(1,4)); //solderR
+int c = floor(random(1,4)); //cabbageX
+int d = floor(random(1,4)); //cabbageY
+
+int cabbageX=80*c;
+int cabbageY=80*d;
+
+float groundhogIdleX=320;
+float groundhogIdleY=80;
+float groundhogIdleSpeed = 80;
+float groundhogIdleWidth = 80;
+
+int soldierX;
+int soldierY=160+80*r;
+int life=2;
+
+
+
+void setup() {
+	size(640, 480, P2D);
+  startNormalImg=loadImage("img/startNormal.png");
+  restartNormalImg=loadImage("img/restartNormal.png");
+  startHoverdImg=loadImage("img/startHovered.png");
+  restartHoverdImg=loadImage("img/restartHovered.png");
+  titleImg=loadImage("img/title.jpg");
+  gameoverImg=loadImage("img/gameover.jpg");
+  groundhogDownImg=loadImage("img/groundhogDown.png");
+  groundhogLeftImg=loadImage("img/groundhogLeft.png");
+  groundhogRightImg=loadImage("img/groundhogRight.png");
+  lifeImg=loadImage("img/life.png");
+}
+
+void draw() {
+  switch(gameState){
+   case GAME_START:
+       image(titleImg, 0, 0);
+       image(startNormalImg, 248, 360);
+      if(mouseX > BUTTON_LEFT && mouseX < BUTTON_RIGHT
+        && mouseY > BUTTON_TOP && mouseY < BUTTON_BOTTOM){
+          image(startHoverdImg, 248, 360);
+          if(mousePressed){gameState = GAME_RUN;}
+          }
+        break;
+
+   case GAME_RUN:
+
+    //background
+      background(0);
+      bgImg=loadImage("img/bg.jpg");
+      image(bgImg,0,0);
+      
+    //soil
+      soilImg=loadImage("img/soil.png");
+      image(soilImg,0,160);
+    
+    //grassland
+      colorMode(RGB);
+      fill(124,204,25);
+      noStroke();
+      rect(0,145,640,15);
+      
+    //sun
       colorMode(RGB);
       fill(225,225,0);
       noStroke();
@@ -115,4 +194,3 @@ void keyReleased() {
        break;}
          }
         }
-      
