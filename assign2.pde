@@ -155,7 +155,7 @@ void draw() {
      
      
      //Touch soilder
-      if( soldierX <= groundhogIdleX + groundhogIdleWidth 
+      if( soldierX < groundhogIdleX + groundhogIdleWidth 
         && soldierX+80 > groundhogIdleX
         && soldierY < groundhogIdleY+80 
         && soldierY+80 > groundhogIdleY){
