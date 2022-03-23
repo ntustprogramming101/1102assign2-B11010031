@@ -165,7 +165,7 @@ void draw() {
           }
         
       //eat cabbage 
-      if( cabbageX <= groundhogIdleX + groundhogIdleWidth 
+      if( cabbageX < groundhogIdleX + groundhogIdleWidth 
       && cabbageX+80 > groundhogIdleX
       && 160+cabbageY < groundhogIdleY+80 
       && 160+cabbageY+80 > groundhogIdleY){
