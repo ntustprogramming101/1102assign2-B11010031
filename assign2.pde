@@ -32,6 +32,22 @@ int soldierX;
 int soldierY=160+80*r;
 int life=2;
 
+float downTime=0;
+float rightTime=0;
+float leftTime=0;
+
+//animation
+int animation;
+final int groundhog_IDLE = 0;
+final int groundhog_LEFT = 1;
+final int groundhog_RIGHT = 2;
+final int groundhog_DOWN = 3;
+ 
+int groundhogState = groundhog_IDLE;
+
+
+
+
 
 
 void setup() {
@@ -93,20 +109,51 @@ void draw() {
     
     //groundhog
       groundhogIdleImg=loadImage("img/groundhogIdle.png");
+      
+    //move
+  if(animation<15){
+    animation++;
+    
+    switch(groundhogState){
+      case groundhog_LEFT:
+        if(groundhogIdleX < 0) groundhogIdleX= 0;
+        groundhogIdleX -= 80/15.0;
+        break;
+      case groundhog_RIGHT:
+        if(groundhogIdleX + groundhogIdleWidth > width ) groundhogIdleX = width- groundhogIdleWidth ;
+        groundhogIdleX += 80/15.0;
+        break;
+      case groundhog_DOWN:
+        if(groundhogIdleY + groundhogIdleWidth > height ) 
+                groundhogIdleY =height-groundhogIdleWidth;
+        groundhogIdleY += 80/15.0;
+        break; }
+        }
+    else{ groundhogState = groundhog_IDLE; }
+   
+  //display
+  switch(groundhogState){
+    case groundhog_IDLE:
       image(groundhogIdleImg,groundhogIdleX,groundhogIdleY);
-        
+      break;
+    case groundhog_LEFT:
+      image(groundhogLeftImg,groundhogIdleX,groundhogIdleY);
+      break;
+    case groundhog_RIGHT:
+      image(groundhogRightImg,groundhogIdleX,groundhogIdleY);
+      break;
+    case groundhog_DOWN:
+      image(groundhogDownImg,groundhogIdleX,groundhogIdleY);      
+      break;
+  }
+
     //solder
        soldierImg=loadImage("img/soldier.png");
          image(soldierImg,soldierX,soldierY);
         soldierX+=10;
         if (soldierX>=640){soldierX=-80;}
      
-     //animate
-     for(int animate = 0 ; animate < 1 ; animate+=80/15 ){
-        if (downPressed){loadImage("img/groundhogDown.png");}
-        if (leftPressed){loadImage("img/groundhogLeft.png");}
-        if (rightPressed){loadImage("img/groundhogRight.png");}
-     }
+     
      //Touch soilder
       if( soldierX <= groundhogIdleX + groundhogIdleWidth 
         && soldierX+80 > groundhogIdleX
@@ -140,9 +187,9 @@ void draw() {
         image(lifeImg,10,10);
         image(lifeImg,80,10);
         image(lifeImg,150,10);}
-        
-   break;
-        
+	
+	break;
+  
    case GAME_OVER:
        image(gameoverImg, 0, 0);;
        image(restartNormalImg, 248, 360);
@@ -154,43 +201,29 @@ void draw() {
             life=2;}
             }
     break;
-    }//gameState
-          
+    }//gameState         
 }
 void keyPressed() {
-      if (key == CODED){
-     switch ( keyCode ){
-      case DOWN:
-       groundhogIdleY += groundhogIdleSpeed ;
-       if(groundhogIdleY + groundhogIdleWidth > height ) 
-       groundhogIdleY =height-groundhogIdleWidth;
-        downPressed = true;
-       break;
-      case LEFT:
-       groundhogIdleX -= groundhogIdleSpeed;
-       if(groundhogIdleX<0) groundhogIdleX=0;
-       leftPressed = true;
-       break;
-      case RIGHT:
-       groundhogIdleX += groundhogIdleSpeed;
-       if(groundhogIdleX + groundhogIdleWidth > width ) groundhogIdleX = width- groundhogIdleWidth ;
-       rightPressed = true;
-       break;
-       }
-      }}
-      
-
-void keyReleased() {
-   if (key == CODED){
-     switch ( keyCode ){
-      case DOWN:
-       downPressed = false;
-       break;
-      case LEFT:
-       leftPressed = false;
-       break;
-      case RIGHT:
-       rightPressed = false;
-       break;}
-         }
-        }
+          if( groundhogState == groundhog_IDLE){
+            animation = 0;
+            
+            switch(keyCode){
+              case LEFT:
+                groundhogState = groundhog_LEFT;
+                 if(groundhogIdleX < 0) groundhogIdleX= 0;
+                 leftPressed = true;
+                break;
+              case RIGHT:
+                groundhogState = groundhog_RIGHT;
+                if(groundhogIdleX + groundhogIdleWidth > width ) groundhogIdleX = width- groundhogIdleWidth ;
+                 rightPressed = true;
+                break;
+              case DOWN:
+                groundhogState = groundhog_DOWN;
+                if(groundhogIdleY + groundhogIdleWidth > height ) 
+                groundhogIdleY =height-groundhogIdleWidth;
+                downPressed = true;
+                break;
+                }
+               }
+    }
