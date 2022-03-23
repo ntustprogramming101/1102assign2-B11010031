@@ -144,15 +144,15 @@ void draw() {
     //solder
        soldierImg=loadImage("img/soldier.png");
          image(soldierImg,soldierX,soldierY);
-        soldierX+=10;
+        soldierX+=5;
         if (soldierX>=640){soldierX=-80;}
      
      
      //Touch soilder
       if( soldierX < groundhogIdleX + groundhogIdleWidth 
         && soldierX+80 > groundhogIdleX
-        && soldierY < groundhogIdleY+80 
-        && soldierY+80 > groundhogIdleY){
+        && soldierY < groundhogIdleY+70 
+        && soldierY+70 > groundhogIdleY){
           groundhogIdleX=320;
           groundhogIdleY=80;
           life-=1;
