@@ -16,7 +16,7 @@ PImage bgImg, soilImg, lifeImg, groundhogIdleImg,  soldierImg, cabbageImg, gameo
   final int BUTTON_RIGHT = 392;
  
 int r=floor(random(1,4)); //solderR
-int c = floor(random(1,4)); //cabbageX
+int c = floor(random(1,8)); //cabbageX
 int d = floor(random(1,4)); //cabbageY
 
 int cabbageX=80*c;
