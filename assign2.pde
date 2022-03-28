@@ -154,10 +154,10 @@ void draw() {
      
      
      //Touch soilder
-      if( soldierX < groundhogIdleX + groundhogIdleWidth 
+      if( soldierX < groundhogIdleX + 80 
         && soldierX+80 > groundhogIdleX
-        && soldierY < groundhogIdleY+80 
-        && soldierY+80 > groundhogIdleY){
+        && soldierY < groundhogIdleY+79 
+        && soldierY+79 > groundhogIdleY){
           groundhogIdleX=320;
           groundhogIdleY=80;
           life-=1;
@@ -167,8 +167,8 @@ void draw() {
       //eat cabbage 
       if( cabbageX < groundhogIdleX + groundhogIdleWidth 
       && cabbageX+80 > groundhogIdleX
-      && 160+cabbageY < groundhogIdleY+80 
-      && 160+cabbageY+80 > groundhogIdleY){
+      && 160+cabbageY < groundhogIdleY+79 
+      && 160+cabbageY+79 > groundhogIdleY){
        cabbageX=1000;
        life+=1;}
        
