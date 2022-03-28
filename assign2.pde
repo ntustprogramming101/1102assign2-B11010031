@@ -44,6 +44,11 @@ final int groundhog_DOWN = 3;
  
 int groundhogState = groundhog_IDLE;
 
+
+
+
+
+
 void setup() {
 	size(640, 480, P2D);
   startNormalImg=loadImage("img/startNormal.png");
@@ -151,16 +156,17 @@ void draw() {
      //Touch soilder
       if( soldierX < groundhogIdleX + groundhogIdleWidth 
         && soldierX+80 > groundhogIdleX
-        && soldierY < groundhogIdleY+70 
-        && soldierY+70 > groundhogIdleY){
+        && soldierY < groundhogIdleY+80 
+        && soldierY+80 > groundhogIdleY){
           groundhogIdleX=320;
           groundhogIdleY=80;
           life-=1;
+          groundhogState = groundhog_IDLE;
           }
         
       //eat cabbage 
-      if( cabbageX < groundhogIdleX + groundhogIdleWidth -10
-      && cabbageX+70 > groundhogIdleX
+      if( cabbageX < groundhogIdleX + groundhogIdleWidth 
+      && cabbageX+80 > groundhogIdleX
       && 160+cabbageY < groundhogIdleY+80 
       && 160+cabbageY+80 > groundhogIdleY){
        cabbageX=1000;
@@ -169,8 +175,6 @@ void draw() {
        // life set
         if(life == 0){
           gameState = GAME_OVER;
-          groundhogIdleX=320;
-          groundhogIdleY=80;
         }
         if(life == 1){
         image(lifeImg,10,10);}
@@ -192,7 +196,14 @@ void draw() {
             image(restartHoverdImg, 248, 360);
             if(mousePressed){
             gameState = GAME_RUN;
-            life=2;}
+            life=2;
+            soldierX=0;
+            soldierY=160+80*(int(random(4)));;}
+            groundhogIdleX=320;
+            groundhogIdleY=80;
+            cabbageX=int(random(4));
+            cabbageY=160+(int(random(4)));
+            groundhogState = groundhog_IDLE;
             }
     break;
     }//gameState
